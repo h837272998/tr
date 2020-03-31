@@ -1,17 +1,18 @@
 <template>
-  <div >
+  <div>
     <el-container style="margin-top: 30px">
       <el-aside width="160px">
         <div
           v-for="(hr,index) in hrs"
           :key="hr.id"
-          @click="toggleFriend(hr)"
           class="friendListDiv"
           :class="{currentChatFriend:currentFriend.id==hr.id}"
+          @click="toggleFriend(hr)"
         >
           <img :src="hr.avatar" class="userfaceImg">
           <el-badge
-            :is-dot="isDotMap.get('isDot#'+currentUsername+'#'+hr.username)!=null">
+            :is-dot="isDotMap.get('isDot#'+currentUsername+'#'+hr.username)!=null"
+          >
             {{ hr.username }}</el-badge>
         </div>
         <div style="background-color: #20a0ff;height: 1px;width: 160px;" />
@@ -36,7 +37,7 @@
                 border-color: #f1f1f1;border-radius: 4px;padding: 5px 8px 5px 8px;max-width: 400px;word-break:break-all"
               >
                 {{ msg.msg }}
-<!--                <span v-html="msg.msg"></span>-->
+                <!--                <span v-html="msg.msg"></span>-->
               </div>
             </div>
             <!--发出去的消息-->
@@ -45,14 +46,14 @@
               style="display: flex;justify-content: flex-end;
               align-items: center;box-sizing: border-box;padding-bottom: 8px;"
             >
-<!--              display: inline-flex;-->
+              <!--              display: inline-flex;-->
               <div
                 style="display: inline-flex;border-style: solid;border-width: 1px;border-color: #f1f1f1;
                 border-radius: 5px;padding: 5px 8px 5px 8px;margin-right: 3px;background-color: #9eea6a;
                 max-width: 400px;word-break:break-all"
               >
                 {{ msg.msg }}
-<!--                <span v-html="msg.msg"></span>-->
+                <!--                <span v-html="msg.msg"></span>-->
               </div>
               <img :src="currentAvatar" class="userfaceImg" style="border-radius: 10px;">
             </div>
@@ -78,9 +79,11 @@
   </div>
 </template>
 <script>
-import {getFriend, pullUnreadMessage} from '@/api/user';
+import { getFriend, pullUnreadMessage } from '@/api/user'
 import FaceInput from '@/components/FaceInput1/Comment'
 export default {
+  // eslint-disable-next-line vue/no-unused-components
+  components: { FaceInput },
   data() {
     return {
       hrs: [],
@@ -95,7 +98,6 @@ export default {
       }
     }
   },
-  components:{FaceInput},
   computed: {
     msgList: {
       get: function() {
@@ -163,7 +165,7 @@ export default {
       _this.hrs = []
       getFriend().then(resp => {
         this.hrs = resp.data
-      });
+      })
       this.$store.dispatch('char/content')
       pullUnreadMessage().then(resp => {
         if (resp.data != null) {
@@ -183,10 +185,10 @@ export default {
             if (row.from != this.currentFriend.username) {
               this.$store.commit('char/addValue2DotMap', 'isDot#' + this.currentUsername + '#' + row.from)
             }
-          });
+          })
           this.updateChatDiv()
         }
-      });
+      })
       this.$store.commit('char/toggleNFDot', false)
     }
   }
