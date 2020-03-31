@@ -52,10 +52,10 @@
                       <span class="redTitle">热度榜</span>
                     </div>
                     <div v-for="row in heatList">
-                      <el-link style="font-weight: bold;line-height: 20px" @click="handleResolve(row.id)"
+                      <el-link style="font-weight: bold;line-height: 20px"
+@click="handleResolve(row.id)"
                                :underline="false">
-                        {{row.articleTitle
-                        }}</el-link>
+                        {{ row.articleTitle }}</el-link>
                     </div>
                   </el-card>
                 </template>
@@ -83,22 +83,20 @@
                       </div>
                       <div v-for="row in createList">
                         <el-link style="font-weight: bold;line-height: 20px" :underline="false"  @click="handleResolve(row.id)">
-                          {{row.articleTitle
-                          }}</el-link>
+                          {{row.articleTitle}}</el-link>
                       </div>
                     </el-card>
                   </div>
                 </template>
                 <template slot="paneR">
-                  <!--                  <div class="left-container" >-->
+                  <!--                  <div class="left-container" >-->clcl
                   <el-card class="el-change-card">
                     <div slot="header">
                       <span class="redTitle">最新评论</span>
                     </div>
                     <div v-for="row in disTimeList">
                       <el-link style="font-weight: bold;line-height: 20px" :underline="false"  @click="handleResolve(row.id)">
-                        {{row.articleTitle
-                        }}</el-link>
+                        {{row.articleTitle}}</el-link>
                     </div>
                   </el-card>
                   <!--                  </div>-->
@@ -136,6 +134,7 @@ export default {
       createList: []
     }
   },
+  // eslint-disable-next-line no-dupe-keys
   computed: {
     noMore() {
       return this.count >= 10
@@ -160,9 +159,9 @@ export default {
     },
     handleResolve(id) {
       const routeUrl = this.$router.resolve({
-        path: `/article/${id}`,
+        path: `/article/${id}`
       })
-      window.open(routeUrl .href, '_blank')
+      window.open(routeUrl.href, '_blank')
     },
     generateIndex() {
       index('now_heat').then(resp => {
